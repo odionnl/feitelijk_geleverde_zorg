@@ -1,0 +1,59 @@
+-- ============================================================
+-- Verantwoording Feitelijk Geleverde Zorg
+-- Standalone T-SQL views voor Nedap Ons-organisaties
+-- ============================================================
+--
+-- Dit script maakt views aan waarmee je per client een
+-- verantwoordingsscore berekent op basis van 3 of 4 checks:
+--
+--   1. Geldig zorgplan          (verplicht)
+--   2. Recente rapportages      (verplicht)
+--   3. Medicatie toegediend     (verplicht, NULL = n.v.t.)
+--   4. Zorgplan ingezien        (OPTIONEEL - vereist ORTEC + audit-data)
+--
+-- VEREISTEN
+-- ---------
+-- - SQL Server 2016+ (voor CREATE OR ALTER VIEW)
+-- - Toegang tot de Nedap Ons database (standaard: Ons_Plan_2)
+-- - Optioneel: ORTEC roosterdata + RPA audit-logs
+--
+-- CONFIGURATIE
+-- ------------
+-- Pas de volgende waarden aan voor jouw omgeving.
+-- Gebruik zoek-en-vervang in ALLE bestanden (00 t/m 11):
+--
+--   Ons_Plan_2       ->  jouw OnsDB database naam
+--   raw_ortec        ->  jouw ORTEC database/schema (alleen nodig voor check 4)
+--   raw_ons_audits   ->  jouw audits database/schema (alleen nodig voor check 4)
+--   28               ->  jouw evaluatieperiode in dagen (standaard: 28)
+--
+-- INSTALLATIE
+-- -----------
+-- Voer de bestanden uit in nummervolgorde:
+--
+--   00  Setup (dit bestand)
+--   01  v_clienten_in_zorg
+--   02  v_locaties_met_kostenplaatsen
+--   03  v_medewerkers_met_deskundigheidsgroepen
+--   04  v_medicatie_toedieningen
+--   05  v_zorgplan_inzage              ** OPTIONEEL — vereist audit-data **
+--   06  v_medewerkers_met_dienst_locaties  ** OPTIONEEL — vereist ORTEC **
+--   07  v_check_geldig_zorgplan
+--   08  v_check_recente_rapportages
+--   09  v_check_medicatie_toegediend
+--   10  v_check_zorgplan_ingezien      ** OPTIONEEL — vereist 05 + 06 **
+--   11a v_feitelijk_geleverde_zorg     (met check 4 — als je 05/06/10 hebt)
+--   11b v_feitelijk_geleverde_zorg     (zonder check 4 — als je 05/06/10 overslaat)
+--
+-- Kies 11a OF 11b, niet beide. Sla 05, 06 en 10 over als je geen
+-- ORTEC-roosterdata of RPA audit-logs hebt.
+--
+-- RESULTAAT
+-- ---------
+-- Na installatie: SELECT * FROM verantwoording.v_feitelijk_geleverde_zorg
+-- ============================================================
+
+-- Schema aanmaken
+IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = 'verantwoording')
+    EXEC('CREATE SCHEMA verantwoording');
+GO
