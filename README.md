@@ -27,12 +27,12 @@ views/
   basis/                        Verplichte views (checks 1-3)
     01_clienten_in_zorg.sql
     02_locaties_met_kostenplaatsen.sql
-    03_medewerkers_met_deskundigheidsgroepen.sql
     04_medicatie_toedieningen.sql
     07_check_geldig_zorgplan.sql
     08_check_recente_rapportages.sql
     09_check_medicatie_afgetekend.sql
   optioneel/                    Views voor check 4 (ORTEC + audit-data)
+    03_medewerkers_met_deskundigheidsgroepen.sql
     05_zorgplan_inzage.sql
     06_medewerkers_met_dienst_locaties.sql
     10_check_zorgplan_ingezien.sql
@@ -63,7 +63,6 @@ Voer de bestanden uit in nummervolgorde op je SQL Server:
 00_setup.sql
 views/basis/01_clienten_in_zorg.sql
 views/basis/02_locaties_met_kostenplaatsen.sql
-views/basis/03_medewerkers_met_deskundigheidsgroepen.sql
 views/basis/04_medicatie_toedieningen.sql
 views/basis/07_check_geldig_zorgplan.sql
 views/basis/08_check_recente_rapportages.sql
@@ -72,6 +71,7 @@ views/basis/09_check_medicatie_afgetekend.sql
 
 **Met ORTEC + audit-data (4 checks):**
 ```
+views/optioneel/03_medewerkers_met_deskundigheidsgroepen.sql
 views/optioneel/05_zorgplan_inzage.sql
 views/optioneel/06_medewerkers_met_dienst_locaties.sql
 views/optioneel/10_check_zorgplan_ingezien.sql
