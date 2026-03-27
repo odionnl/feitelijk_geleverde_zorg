@@ -1,7 +1,7 @@
--- Check 3: Is medicatie correct toegediend in de evaluatieperiode?
+-- Check 3: Is medicatie correct afgetekend in de evaluatieperiode?
 -- Resultaat: 1 = ja, 0 = nee, NULL = niet van toepassing (geen medicatie).
 -- NULL-waarden tellen niet mee in de score-berekening.
-CREATE OR ALTER VIEW verantwoording.v_check_medicatie_toegediend AS
+CREATE OR ALTER VIEW verantwoording.v_check_medicatie_afgetekend AS
 
 WITH clienten AS (
 
@@ -55,7 +55,7 @@ per_client AS (
 
     SELECT
         client_id,
-        MAX(geldig_status) AS medicatie_toegediend
+        MAX(geldig_status) AS medicatie_afgetekend
 
     FROM relevante_toedieningen
     GROUP BY client_id
@@ -64,7 +64,7 @@ per_client AS (
 
 SELECT
     clienten.client_id,
-    per_client.medicatie_toegediend
+    per_client.medicatie_afgetekend
 
 FROM clienten
 LEFT JOIN per_client

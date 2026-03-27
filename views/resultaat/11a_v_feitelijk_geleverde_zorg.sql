@@ -22,9 +22,9 @@ recente_rapportages AS (
 
 ),
 
-medicatie_toegediend AS (
+medicatie_afgetekend AS (
 
-    SELECT * FROM verantwoording.v_check_medicatie_toegediend
+    SELECT * FROM verantwoording.v_check_medicatie_afgetekend
 
 ),
 
@@ -41,7 +41,7 @@ SELECT
     -- Individuele checks
     COALESCE(geldig_zorgplan.geldig_zorgplan, 0)            AS geldig_zorgplan,
     COALESCE(recente_rapportages.recente_rapportages, 0)    AS recente_rapportages,
-    medicatie_toegediend.medicatie_toegediend,
+    medicatie_afgetekend.medicatie_afgetekend,
     COALESCE(zorgplan_ingezien.zorgplan_ingezien, 0)        AS zorgplan_ingezien,
 
     -- Score: percentage behaalde checks (dynamische deler)
@@ -49,13 +49,13 @@ SELECT
         (
             COALESCE(geldig_zorgplan.geldig_zorgplan, 0.0)
             + COALESCE(recente_rapportages.recente_rapportages, 0.0)
-            + COALESCE(medicatie_toegediend.medicatie_toegediend, 0.0)
+            + COALESCE(medicatie_afgetekend.medicatie_afgetekend, 0.0)
             + COALESCE(zorgplan_ingezien.zorgplan_ingezien, 0.0)
         ) * 100.0 / NULLIF(
             CASE WHEN geldig_zorgplan.client_id       IS NOT NULL THEN 1 ELSE 0 END
             + CASE WHEN recente_rapportages.client_id IS NOT NULL THEN 1 ELSE 0 END
             + CASE WHEN zorgplan_ingezien.client_id   IS NOT NULL THEN 1 ELSE 0 END
-            + CASE WHEN medicatie_toegediend.medicatie_toegediend IS NOT NULL THEN 1 ELSE 0 END,
+            + CASE WHEN medicatie_afgetekend.medicatie_afgetekend IS NOT NULL THEN 1 ELSE 0 END,
             0
         ),
     0) AS INT)                                              AS client_score,
@@ -69,8 +69,8 @@ LEFT JOIN geldig_zorgplan
     ON geldig_zorgplan.client_id = clienten.client_id
 LEFT JOIN recente_rapportages
     ON recente_rapportages.client_id = clienten.client_id
-LEFT JOIN medicatie_toegediend
-    ON medicatie_toegediend.client_id = clienten.client_id
+LEFT JOIN medicatie_afgetekend
+    ON medicatie_afgetekend.client_id = clienten.client_id
 LEFT JOIN zorgplan_ingezien
     ON zorgplan_ingezien.client_id = clienten.client_id;
 GO

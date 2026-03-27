@@ -8,7 +8,7 @@ Standalone T-SQL views waarmee je per client een verantwoordingsscore (0–100%)
 |---|---|---|---|
 | 1 | **Geldig zorgplan** — heeft de client een actief zorgplan? | Ja | 0 / 1 |
 | 2 | **Recente rapportages** — zijn er rapportages in de evaluatieperiode? | Ja | 0 / 1 |
-| 3 | **Medicatie toegediend** — is medicatie correct toegediend? | Ja | 0 / 1 / NULL (n.v.t.) |
+| 3 | **Medicatie afgetekend** — is medicatie correct afgetekend? | Ja | 0 / 1 / NULL (n.v.t.) |
 | 4 | **Zorgplan ingezien** — is het zorgplan ingezien door zorgpersoneel op dezelfde locatie? | Nee | 0 / 1 |
 
 De score wordt berekend als percentage van de van toepassing zijnde checks. Checks met NULL (zoals medicatie bij clienten zonder medicatie) tellen niet mee in de deler.
@@ -31,7 +31,7 @@ views/
     04_v_medicatie_toedieningen.sql
     07_v_check_geldig_zorgplan.sql
     08_v_check_recente_rapportages.sql
-    09_v_check_medicatie_toegediend.sql
+    09_v_check_medicatie_afgetekend.sql
   optioneel/                    Views voor check 4 (ORTEC + audit-data)
     05_v_zorgplan_inzage.sql
     06_v_medewerkers_met_dienst_locaties.sql
@@ -67,7 +67,7 @@ views/basis/03_v_medewerkers_met_deskundigheidsgroepen.sql
 views/basis/04_v_medicatie_toedieningen.sql
 views/basis/07_v_check_geldig_zorgplan.sql
 views/basis/08_v_check_recente_rapportages.sql
-views/basis/09_v_check_medicatie_toegediend.sql
+views/basis/09_v_check_medicatie_afgetekend.sql
 ```
 
 **Met ORTEC + audit-data (4 checks):**
