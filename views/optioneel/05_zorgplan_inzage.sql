@@ -1,7 +1,7 @@
 -- OPTIONEEL: Audit-logs van zorgplaninzage.
 -- Vereist: tabel raw_ons_audits.dbo.audits (geladen via RPA-pipeline).
 -- Sla dit bestand over als je geen audit-data hebt.
-CREATE OR ALTER VIEW verantwoording.v_zorgplan_inzage AS
+CREATE OR ALTER VIEW verantwoording.zorgplan_inzage AS
 
 SELECT
     tijdstip,

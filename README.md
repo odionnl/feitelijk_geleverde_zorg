@@ -25,20 +25,20 @@ De score wordt berekend als percentage van de van toepassing zijnde checks. Chec
 00_setup.sql                    Schema aanmaken + configuratie-instructies
 views/
   basis/                        Verplichte views (checks 1-3)
-    01_v_clienten_in_zorg.sql
-    02_v_locaties_met_kostenplaatsen.sql
-    03_v_medewerkers_met_deskundigheidsgroepen.sql
-    04_v_medicatie_toedieningen.sql
-    07_v_check_geldig_zorgplan.sql
-    08_v_check_recente_rapportages.sql
-    09_v_check_medicatie_afgetekend.sql
+    01_clienten_in_zorg.sql
+    02_locaties_met_kostenplaatsen.sql
+    03_medewerkers_met_deskundigheidsgroepen.sql
+    04_medicatie_toedieningen.sql
+    07_check_geldig_zorgplan.sql
+    08_check_recente_rapportages.sql
+    09_check_medicatie_afgetekend.sql
   optioneel/                    Views voor check 4 (ORTEC + audit-data)
-    05_v_zorgplan_inzage.sql
-    06_v_medewerkers_met_dienst_locaties.sql
-    10_v_check_zorgplan_ingezien.sql
+    05_zorgplan_inzage.sql
+    06_medewerkers_met_dienst_locaties.sql
+    10_check_zorgplan_ingezien.sql
   resultaat/                    Eindview met score per client
-    11a_v_feitelijk_geleverde_zorg.sql   (met check 4)
-    11b_v_feitelijk_geleverde_zorg.sql   (zonder check 4)
+    11a_feitelijk_geleverde_zorg.sql   (met check 4)
+    11b_feitelijk_geleverde_zorg.sql   (zonder check 4)
 ```
 
 ## Installatie
@@ -61,32 +61,32 @@ Voer de bestanden uit in nummervolgorde op je SQL Server:
 **Altijd:**
 ```
 00_setup.sql
-views/basis/01_v_clienten_in_zorg.sql
-views/basis/02_v_locaties_met_kostenplaatsen.sql
-views/basis/03_v_medewerkers_met_deskundigheidsgroepen.sql
-views/basis/04_v_medicatie_toedieningen.sql
-views/basis/07_v_check_geldig_zorgplan.sql
-views/basis/08_v_check_recente_rapportages.sql
-views/basis/09_v_check_medicatie_afgetekend.sql
+views/basis/01_clienten_in_zorg.sql
+views/basis/02_locaties_met_kostenplaatsen.sql
+views/basis/03_medewerkers_met_deskundigheidsgroepen.sql
+views/basis/04_medicatie_toedieningen.sql
+views/basis/07_check_geldig_zorgplan.sql
+views/basis/08_check_recente_rapportages.sql
+views/basis/09_check_medicatie_afgetekend.sql
 ```
 
 **Met ORTEC + audit-data (4 checks):**
 ```
-views/optioneel/05_v_zorgplan_inzage.sql
-views/optioneel/06_v_medewerkers_met_dienst_locaties.sql
-views/optioneel/10_v_check_zorgplan_ingezien.sql
-views/resultaat/11a_v_feitelijk_geleverde_zorg.sql
+views/optioneel/05_zorgplan_inzage.sql
+views/optioneel/06_medewerkers_met_dienst_locaties.sql
+views/optioneel/10_check_zorgplan_ingezien.sql
+views/resultaat/11a_feitelijk_geleverde_zorg.sql
 ```
 
 **Zonder ORTEC/audit-data (3 checks):**
 ```
-views/resultaat/11b_v_feitelijk_geleverde_zorg.sql
+views/resultaat/11b_feitelijk_geleverde_zorg.sql
 ```
 
 ### Stap 3: Resultaat bekijken
 
 ```sql
-SELECT * FROM verantwoording.v_feitelijk_geleverde_zorg;
+SELECT * FROM verantwoording.feitelijk_geleverde_zorg;
 ```
 
 ## Databronnen

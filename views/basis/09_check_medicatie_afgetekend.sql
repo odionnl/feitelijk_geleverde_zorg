@@ -1,17 +1,17 @@
 -- Check 3: Is medicatie correct afgetekend in de evaluatieperiode?
 -- Resultaat: 1 = ja, 0 = nee, NULL = niet van toepassing (geen medicatie).
 -- NULL-waarden tellen niet mee in de score-berekening.
-CREATE OR ALTER VIEW verantwoording.v_check_medicatie_afgetekend AS
+CREATE OR ALTER VIEW verantwoording.check_medicatie_afgetekend AS
 
 WITH clienten AS (
 
-    SELECT * FROM verantwoording.v_clienten_in_zorg
+    SELECT * FROM verantwoording.clienten_in_zorg
 
 ),
 
 toedieningen AS (
 
-    SELECT * FROM verantwoording.v_medicatie_toedieningen
+    SELECT * FROM verantwoording.medicatie_toedieningen
 
 ),
 

@@ -1,10 +1,10 @@
 -- Check 1: Heeft de client een actief zorgplan op vandaag?
 -- Resultaat: 1 = ja, 0 = nee.
-CREATE OR ALTER VIEW verantwoording.v_check_geldig_zorgplan AS
+CREATE OR ALTER VIEW verantwoording.check_geldig_zorgplan AS
 
 WITH clienten AS (
 
-    SELECT * FROM verantwoording.v_clienten_in_zorg
+    SELECT * FROM verantwoording.clienten_in_zorg
 
 ),
 

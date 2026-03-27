@@ -1,7 +1,7 @@
 -- Medicatietoedieningen met status.
 -- Grain: een rij per toediening x statusupdate.
 -- Filters: niet vrijgesteld, geen test-overzichten.
-CREATE OR ALTER VIEW verantwoording.v_medicatie_toedieningen AS
+CREATE OR ALTER VIEW verantwoording.medicatie_toedieningen AS
 
 SELECT
     ma.id                               AS toediening_id,

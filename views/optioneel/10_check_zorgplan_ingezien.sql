@@ -2,11 +2,11 @@
 -- Vereist: views 05 (v_zorgplan_inzage) en 06 (v_medewerkers_met_dienst_locaties).
 -- Sla dit bestand over als je geen ORTEC- en audit-data hebt.
 -- Resultaat: 1 = ja, 0 = nee.
-CREATE OR ALTER VIEW verantwoording.v_check_zorgplan_ingezien AS
+CREATE OR ALTER VIEW verantwoording.check_zorgplan_ingezien AS
 
 WITH clienten AS (
 
-    SELECT * FROM verantwoording.v_clienten_in_zorg
+    SELECT * FROM verantwoording.clienten_in_zorg
 
 ),
 
@@ -18,7 +18,7 @@ clienten_met_nummer AS (
         c.identificationNo AS clientnummer
 
     FROM Ons_Plan_2.dbo.clients AS c
-    INNER JOIN verantwoording.v_clienten_in_zorg AS ci
+    INNER JOIN verantwoording.clienten_in_zorg AS ci
         ON ci.client_id = c.objectId
 
 ),
@@ -39,7 +39,7 @@ client_locaties AS (
 audits_in_periode AS (
 
     SELECT *
-    FROM verantwoording.v_zorgplan_inzage
+    FROM verantwoording.zorgplan_inzage
     WHERE tijdstip >= DATEADD(day, -28, CAST(GETDATE() AS DATE))
       AND tijdstip <= CAST(GETDATE() AS DATE)
 
@@ -69,7 +69,7 @@ audits_zorgpersoneel AS (
         a.client_id
 
     FROM audits_met_client AS a
-    INNER JOIN verantwoording.v_medewerkers_met_deskundigheidsgroepen AS eg
+    INNER JOIN verantwoording.medewerkers_met_deskundigheidsgroepen AS eg
         ON eg.medewerker_id COLLATE database_default
          = a.medewerker_id COLLATE database_default
         AND eg.deskundigheidsgroep = 'Zorgpersoneel (tbv planning & control)'
@@ -85,7 +85,7 @@ audits_met_locatie_overlap AS (
         az.client_id
 
     FROM audits_zorgpersoneel AS az
-    INNER JOIN verantwoording.v_medewerkers_met_dienst_locaties AS dl
+    INNER JOIN verantwoording.medewerkers_met_dienst_locaties AS dl
         ON dl.medewerker_id COLLATE database_default
          = az.medewerker_id COLLATE database_default
     INNER JOIN client_locaties AS cl

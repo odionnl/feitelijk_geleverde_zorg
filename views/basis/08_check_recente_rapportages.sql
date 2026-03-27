@@ -1,10 +1,10 @@
 -- Check 2: Heeft de client rapportages in de evaluatieperiode (28 dagen)?
 -- Resultaat: 1 = ja, 0 = nee.
-CREATE OR ALTER VIEW verantwoording.v_check_recente_rapportages AS
+CREATE OR ALTER VIEW verantwoording.check_recente_rapportages AS
 
 WITH clienten AS (
 
-    SELECT * FROM verantwoording.v_clienten_in_zorg
+    SELECT * FROM verantwoording.clienten_in_zorg
 
 ),
 

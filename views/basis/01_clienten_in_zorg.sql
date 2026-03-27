@@ -1,6 +1,6 @@
 -- Clienten met een actieve zorgtoewijzing op vandaag.
 -- Grain: een rij per actieve client.
-CREATE OR ALTER VIEW verantwoording.v_clienten_in_zorg AS
+CREATE OR ALTER VIEW verantwoording.clienten_in_zorg AS
 
 WITH clienten AS (
 

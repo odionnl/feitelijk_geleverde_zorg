@@ -2,29 +2,29 @@
 -- Variant ZONDER check 4 (score over 3 checks).
 -- Gebruik dit bestand als je bestanden 05, 06 en 10 NIET hebt uitgevoerd.
 -- Grain: een rij per client in zorg.
-CREATE OR ALTER VIEW verantwoording.v_feitelijk_geleverde_zorg AS
+CREATE OR ALTER VIEW verantwoording.feitelijk_geleverde_zorg AS
 
 WITH clienten AS (
 
-    SELECT * FROM verantwoording.v_clienten_in_zorg
+    SELECT * FROM verantwoording.clienten_in_zorg
 
 ),
 
 geldig_zorgplan AS (
 
-    SELECT * FROM verantwoording.v_check_geldig_zorgplan
+    SELECT * FROM verantwoording.check_geldig_zorgplan
 
 ),
 
 recente_rapportages AS (
 
-    SELECT * FROM verantwoording.v_check_recente_rapportages
+    SELECT * FROM verantwoording.check_recente_rapportages
 
 ),
 
 medicatie_afgetekend AS (
 
-    SELECT * FROM verantwoording.v_check_medicatie_afgetekend
+    SELECT * FROM verantwoording.check_medicatie_afgetekend
 
 )
 

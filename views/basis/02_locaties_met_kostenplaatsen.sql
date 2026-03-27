@@ -1,7 +1,7 @@
 -- Locaties met al hun kostenplaatskoppelingen over alle tijd.
 -- Grain: een rij per locatie x koppelingsperiode.
 -- Wordt gebruikt door de optionele check 'zorgplan ingezien' (ORTEC-koppeling).
-CREATE OR ALTER VIEW verantwoording.v_locaties_met_kostenplaatsen AS
+CREATE OR ALTER VIEW verantwoording.locaties_met_kostenplaatsen AS
 
 SELECT
     l.objectId                          AS locatie_id,
